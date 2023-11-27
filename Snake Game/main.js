@@ -45,7 +45,7 @@ theButton.addEventListener("click",()=>{
     createSnake()
     createApple()
 })
-//TO DO : figure out how to move the snake on the grid (how to traverse in the grid and how to eat the apple).
+//TO DO : figure out how to move the snake on the grid (how to traverse in the grid and how to eat the apple)..
 
 
 

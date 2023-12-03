@@ -5,11 +5,33 @@ body{
 .body{
     background-color: blue !important;
 }
+.head{
+    background-color: black !important;
+}
 .apple{
     background-color: red !important;
 }
-.head{
-    background-color: black !important;
+.a7a{
+    background-color: #855bff !important;
+}
+.message{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 123, 255, 0.484);
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    font-size: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.message span{
+    text-align: center;
+    font-size: 100px;
+    color: white;
+
 }
 .gameBoard{
     border: 5px black solid;
@@ -18,6 +40,24 @@ body{
     left: 50%;
     top: 50%;
     transform: translate(-50%,-50%);
+
+}
+.score{
+    border-radius: 20px;
+    width: 120px;
+    height: 60px;
+    background-color: #778d9e;
+    color: black;
+    font-weight: bold;
+    text-align: center;
+    position: absolute;
+    font-size: 15px;
+    position: absolute;
+    left: 50%;
+    bottom: 50px;
+    transform: translate(-50%);
+    line-height: 60px;
+
 }
 .gameBoard div[class^="r"]{
     display: flex;

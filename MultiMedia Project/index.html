@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="master.css">
+
+    </head>
+    <body>
+        <div class="big-window">
+            <div class="picture">
+                <canvas class="result" id="canvasResult" width="600" height="600"></canvas>
+                <canvas class="resultt" id="result" width="600" height="600"></canvas>
+            </div>
+            <div class="options">
+                <div class="choose-picture">
+                    <label for="cp">Choose A Picture</label>
+                    <input type="file" name="" id="cp" accept="image/*" style=" display: none;">
+                </div>
+                <div class="func1">
+                    <div class="slider">
+                        <span class="colorChoice">Red Color</span>
+                        <input type="range" min="0" max="100" value="50" class="func1SliderR" id="myRange">
+                    </div>
+                    <div class="slider">
+                        <span class="colorChoice">Green Color</span>
+                        <input type="range" min="0" max="100" value="50" class="func1SliderG" id="myRange">
+                    </div>
+                    <div class="slider">
+                        <span class="colorChoice">Blue Color</span>
+                        <input type="range" min="0" max="100" value="50" class="func1SliderB" id="myRange">
+                    </div>
+                </div>
+                <div class="grayScale">
+                    <div class="slider">
+                        <span class="thresholdChoice">Blur kernal size</span>
+                        <input type="range" min="1" max="10" value="2" class="ThersholdSlider" id="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <canvas id="result"></canvas> -->
+        <script src="main.js"></script>
+        <script src="opencv.js"></script>
+    </body>
+    </html>
+    
+    
+    
+    
+    
+    <!-- <!DOCTYPE html>
+    <html>
+        <head>
+            <meta charset="utf-8">
+            <title>Hello OpenCV.js</title>
+        </head>
+        <body>
+            <h2>Hello OpenCV.js</h2>
+            <p id="status">OpenCV.js is loading...</p>
+            <div>
+                <div class="inputoutput">
+                    "imageSrc"
+                    <img id="imageSrc" alt="No Image" src="Programming Language Table.png"/>
+                    <div class="caption">imageSrc <input type="file" id="fileInput" name="file" /></div>
+                </div>
+                <div>
+                    <canvas id="myCanva" height="1000" width="1000"></canvas>
+                </div>
+                <div class="inputoutput">
+                    <canvas id="canvasOutput" ></canvas>
+                    <div class="caption">canvasOutput</div>
+                </div>
+            </div>
+            <script async src="opencv.js" type="text/javascript"></script>
+            <script type="text/javascript">
+                let imm = document.getElementById("myCanva")
+                function f(){
+                    let src = cv.imread(imm);
+                    let dst = new cv.Mat();
+                    let ksize = new cv.Size(10, 10);
+                    let anchor = new cv.Point(-9, -1);
+                    // You can try more different parameters
+                    cv.blur(src, dst, ksize, anchor, cv.BORDER_DEFAULT);
+                    // cv.boxFilter(src, dst, -1, ksize, anchor, true, cv.BORDER_DEFAULT)
+                    cv.imshow('canvasOutput', dst);
+                    src.delete(); dst.delete();
+                }
+                setInterval(f,2000);
+                var Module = {
+                    onRuntimeInitialized() {
+                        document.getElementById('status').innerHTML = 'OpenCV.js is ready.';
+                    }
+                };
+            </script>
+<script src="main.js"></script>
+</body>
+</html> -->

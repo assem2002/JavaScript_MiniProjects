@@ -29,6 +29,8 @@ const histogramShowCanvas = document.getElementById("ShowHistogram");
 
 const histoEqulizebutton = document.querySelector(".button2")
 const histoEqulizeCanvas = document.getElementById("equlaizeHistogram")
+
+const resetButton =document.querySelector(".button0")
 let functionsDoneBefore = new Set(); // A set to save the function applied so far.
 let lastCanvas=0; //knows which filter was applied last, so the called function would paint on it. 
 
@@ -65,12 +67,14 @@ function displayPhoto(){
     newImage.src = URL.createObjectURL(chosenPicture.files[0]);
     //when the image load it starts drawing.
     newImage.onload = function(){
+        let width = 700
+        if (window.innerWidth <450) width = 320
         let ratio = newImage.width/newImage.height;
-        let n = (1/ratio)*700
-        oringinalImage.width = 700
+        let n = (1/ratio)*width
+        oringinalImage.width = width
         oringinalImage.height = n
         ctx = oringinalImage.getContext("2d");
-        ctx.drawImage(newImage, 0, 0,700,n);
+        ctx.drawImage(newImage, 0, 0,width,n);
     }
 }
 chosenPicture.onchange = displayPhoto;
@@ -353,3 +357,7 @@ function equalizeHistogram(e ,flag =1 ,fakeone =-1){
     
 }
 histoEqulizebutton.addEventListener("click",equalizeHistogram) 
+
+resetButton.addEventListener("click",(e)=>{
+    displayPhoto()
+})

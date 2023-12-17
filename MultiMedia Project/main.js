@@ -31,6 +31,8 @@ const histoEqulizebutton = document.querySelector(".button2")
 const histoEqulizeCanvas = document.getElementById("equlaizeHistogram")
 
 const resetButton =document.querySelector(".button0")
+
+const downloadButton = document.querySelector(".button3")
 let functionsDoneBefore = new Set(); // A set to save the function applied so far.
 let lastCanvas=0; //knows which filter was applied last, so the called function would paint on it. 
 
@@ -71,9 +73,12 @@ function displayPhoto(){
         if (window.innerWidth <450) width = 320
         let ratio = newImage.width/newImage.height;
         let n = (1/ratio)*width
-        oringinalImage.width = width
-        if(window.innerWidth <450 && n>400) n=400
+        if( n>400){
+            n=400
+            width =320
+        }
         console.log(n);
+        oringinalImage.width = width
         oringinalImage.height = n
         ctx = oringinalImage.getContext("2d");
         ctx.drawImage(newImage, 0, 0,width,n);
@@ -362,4 +367,11 @@ histoEqulizebutton.addEventListener("click",equalizeHistogram)
 
 resetButton.addEventListener("click",(e)=>{
     displayPhoto()
+})
+
+downloadButton.addEventListener("click",()=>{
+    var link = document.createElement('a');
+    link.download = 'filename.png';
+    link.href = lastCanvas.toDataURL()
+    link.click();
 })

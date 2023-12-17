@@ -72,7 +72,8 @@ function displayPhoto(){
         let ratio = newImage.width/newImage.height;
         let n = (1/ratio)*width
         oringinalImage.width = width
-        if(window.innerWidth <450 && n>800) n=400
+        if(window.innerWidth <450 && n>400) n=400
+        console.log(n);
         oringinalImage.height = n
         ctx = oringinalImage.getContext("2d");
         ctx.drawImage(newImage, 0, 0,width,n);

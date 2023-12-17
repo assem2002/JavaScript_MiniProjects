@@ -34,7 +34,7 @@ body{
         display: flex;
         flex-direction: column;
         height: 100%;
-        max-width: calc(100% - 150px);
+        max-width: calc(100% - 42px);
         margin: 80px 0 80px;
         width: 100%;
     }
@@ -43,7 +43,7 @@ body{
         height: 78%;
     }
     body{
-        height: 130vh;
+        height: 120vh;
     }
 }
 .options{

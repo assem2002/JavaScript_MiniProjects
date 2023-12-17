@@ -73,6 +73,7 @@ function displayPhoto(){
         let n = (1/ratio)*width
         oringinalImage.width = width
         oringinalImage.height = n
+        if(window.innerWidth <450 && n>800) n=400
         ctx = oringinalImage.getContext("2d");
         ctx.drawImage(newImage, 0, 0,width,n);
     }

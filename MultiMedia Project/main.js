@@ -60,7 +60,7 @@ let ff= 0
 let wait; 
 function displayPhoto( e,im =chosenPicture.files[0],f ){
     //clear if there's photos displayed before this new one.
-    // ff=f
+    ff=f
     if(lastCanvas !=0) lastCanvas.style.display ="none";
     functionsDoneBefore.clear()
     //set a canvas element to draw the image on.

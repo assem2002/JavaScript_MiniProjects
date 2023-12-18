@@ -33,8 +33,11 @@ const histoEqulizeCanvas = document.getElementById("equlaizeHistogram")
 const resetButton =document.querySelector(".button0")
 
 const downloadButton = document.querySelector(".button3")
+const searchBar = document.querySelector(".search input")
+const searchBarbutton = document.querySelector(".search i")
+
 let functionsDoneBefore = new Set(); // A set to save the function applied so far.
-let lastCanvas=0; //knows which filter was applied last, so the called function would paint on it. 
+let lastCanvas =0; //knows which filter was applied last, so the called function would paint on it. 
 
 function redoThings(notToDo){
     lastCanvas = oringinalImage;
@@ -53,9 +56,11 @@ function redoThings(notToDo){
         }
     }
 }
-
-function displayPhoto(){
+let ff= 0
+let wait; 
+function displayPhoto( e,im =chosenPicture.files[0],f ){
     //clear if there's photos displayed before this new one.
+    // ff=f
     if(lastCanvas !=0) lastCanvas.style.display ="none";
     functionsDoneBefore.clear()
     //set a canvas element to draw the image on.
@@ -66,14 +71,19 @@ function displayPhoto(){
     ctx.clearRect(0, 0,700,700);//clears the canvas element from previously painted images.
     //create new image object to passs it the canvas element for further operation like (filters).
     let newImage = new Image();
-    newImage.src = URL.createObjectURL(chosenPicture.files[0]);
+    if(f===1){
+
+    newImage.src =wait;
+    newImage.crossOrigin = "Anonymous";
+    }
+    else newImage.src = URL.createObjectURL(chosenPicture.files[0]);
     //when the image load it starts drawing.
     newImage.onload = function(){
         let width = 700
-        if (window.innerWidth <450) width = 320
+        if (window.innerWidth <550) width = 320
         let ratio = newImage.width/newImage.height;
         let n = (1/ratio)*width
-        if( n>400){
+        if( n>450){
             n=400
             width =320
         }
@@ -83,11 +93,17 @@ function displayPhoto(){
         ctx = oringinalImage.getContext("2d");
         ctx.drawImage(newImage, 0, 0,width,n);
     }
+    lastCanvas =oringinalImage;
+    console.log("hris",lastCanvas)
 }
-chosenPicture.onchange = displayPhoto;
+chosenPicture.addEventListener("change",(e)=>{
+    displayPhoto(e,-1,0)
+    
+})
 
 //BLUR FUNCTION
 function blur(e,flag=1,fakeone=-1){ //flag == 0 means it's a call from another function,flag ==1 means a call from itself.
+    console.log(lastCanvas)
     let valuePassed; //whether it comes from the slider or the 'redothing' function.
     if (flag===0)  {
         valuePassed =fakeone;
@@ -102,7 +118,7 @@ function blur(e,flag=1,fakeone=-1){ //flag == 0 means it's a call from another f
     }
     console.log("value of the blur applied is : ",valuePassed)
     document.querySelectorAll(".grayScale span")[1].innerHTML =valuePassed; //change span value.
-
+    console.log(lastCanvas)
     let src = cv.imread(lastCanvas);
     let dst = new cv.Mat();
     let ksize = new cv.Size(Number(valuePassed),Number(valuePassed));
@@ -366,7 +382,7 @@ function equalizeHistogram(e ,flag =1 ,fakeone =-1){
 histoEqulizebutton.addEventListener("click",equalizeHistogram) 
 
 resetButton.addEventListener("click",(e)=>{
-    displayPhoto()
+    displayPhoto(-1,-1,ff)
 })
 
 downloadButton.addEventListener("click",()=>{
@@ -374,4 +390,31 @@ downloadButton.addEventListener("click",()=>{
     link.download = 'filename.png';
     link.href = lastCanvas.toDataURL()
     link.click();
+})
+
+function getPhotos(e){
+    let ret  =fetch(`https://api.unsplash.com/search/photos?page=1&query=${searchBar.value}&client_id=GD8oOQ6Tp5SgYya8gLOT_EKDhBgO5UAjxZFQ42zAZGc`).then(
+        (r)=>{
+            return r.json();
+        }
+        ).then((d)=>{
+            let allimages = document.querySelectorAll(".photos img");
+            for (let i = 0 ; i<allimages.length ; i++){
+                allimages[i].src = d.results[i].urls.regular;
+            }
+        })
+}
+searchBarbutton.addEventListener("click",getPhotos)
+searchBar.addEventListener("keypress",(e)=>{
+    if(e.key =="Enter"){
+        getPhotos(e);
+    }
+        
+})
+
+const photoBox = document.querySelector(".photos")
+photoBox.addEventListener("click",(e)=>{
+    console.log(e.target.childNodes[1].src)
+    wait =e.target.childNodes[1].src
+    displayPhoto(-1,-1,1);
 })
